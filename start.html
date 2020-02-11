@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>RightPatient: #2 ID</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/normalize.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/bootstrap-select.min.css">
+	<link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="wrapper my-4 text-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<form id="fileForm" enctype="multipart/form-data" method="POST">
+						<!-- step 2 start -->
+						<div id="step2" class="inner-wrap shadow-sm py-5 px-3">
+							<img class="img-fluid company-logo mb-5" src="img/novant-health.png">
+							
+							<div id="step2-wrapper">
+								<h2 class="hello mb-3">Take a photo of your ID card</h2>
+								<div class="time-msg mb-3">Your Photo ID card will be required to validate your identity</div>
+								<div class="identity-dropdown shadow-sm mb-4">
+									<select id="mySelect" data-show-content="true" class="form-control border">
+										<option value="NationalID" data-content="<i class='fa fa-address-card-o'></i> National ID"> National ID</option>
+										<option value="Passport" data-content="<i class='fa fa-address-card-o'></i> Passport"> Passport</option>								
+										<option value="DriverLicense" data-content="<i class='fa fa-address-card-o'></i> Driver License"> Driver License</option>
+										<option value="InsuranceID" data-content="<i class='fa fa-id-card-o'></i> Insurance ID"> Insurance ID</option>
+									</select>
+								</div>
+								<div class="overflow-hidden">
+									<div class="float-left width-49">
+										<div id="mobileCamera" class="mb-15"><input id="frontFile" class="mobileImg mobileImgId" type="file" onchange="showMyImage(this, 'front')" name="image" accept="image/*;capture=camera;capture=user;capture=environment"></div>
+										<div id="mobileThumb" class="thumb-wrapper"><button id="cBtnId" class="mcancelBtn">x</button><img id="thumbnil" src="" alt="" /></div>
+										<div class="camBtnImgWrap">
+											<button id="cancelBtnId" class="cancelBtn">x</button>
+											<div class="btn-img-wrap-capture">
+												<span class="shadow-sm id-capture selfie-zone pt-4 pb-3" id="webCameraBtn"
+													onClick="takePhoto('front')">
+													<img class="img-fluid" src="img/id-info.png">
+													<p class="pt-3 mb-0">Tap to capture</p>
+												</span>
+												<div class="strip"></div>
+											</div>
+										</div>
+										<p class="front-back mb-0 mt-10">FRONT</p>
+									</div>
+									<div class="float-right width-49 mb-15">
+										<div id="mobileCameraBack" class="mb-15"><input id="backFile" class="mobileImg mobileImgId" type="file" onchange="showMyImage(this, 'back')" name="image" accept="image/*;capture=camera;capture=user;capture=environment"></div>
+										<div id="mobileThumbBack" class="thumb-wrapper"><button id="cbBtnId" class="mcancelBtn">x</button><img id="thumbnilBack" src="" alt="" /></div>
+										<div class="camBtnImgWrap">
+											<button id="cancelBtnIdBack" class="cancelBtn">x</button>
+											<div class="btn-img-wrap-capture">
+												<span class="shadow-sm id-capture selfie-zone pt-4 pb-3" id="webCameraBtnBack"
+													onClick="takePhoto('back')">
+													<img class="img-fluid" src="img/id-info.png">
+													<p class="pt-3 mb-0">Tap to capture</p>
+												</span>
+												<div class="stripBack"></div>
+											</div>
+										</div>
+										<p class="front-back mb-0 mt-10">BACK</p>
+									</div>
+								</div>
+							</div>							
+
+							<div id="step3-wrapper">
+								<h2 class="hello mb-3">Take a selfie</h2>
+								<div class="time-msg mb-3">Your selfie is required to matched with your photo ID card</div>
+								<div class="overflow-hidden">
+									<div class="my-3">
+										<div id="mobileCamera-step3" class="mb-15"><input id="selfiImg" class="mobileImg" type="file" onchange="showMyImage(this, 'front-step3')" name="image" accept="image/*;capture=camera;capture=user;capture=environment"></div>
+										<div id="mobileThumb-step3" class="thumb-wrapper"><a href="#" id="cancelBtnId3-mobile" class="cancelBtn-mobile">x</a><img id="thumbnil-step3" src="" alt="" /></div>
+										<div id="camBtnImgWrap-step3" class="camBtnImgWrap">
+											<button id="cancelBtnId3" class="cancelBtn">x</button>
+											<div class="btn-img-wrap">
+												<span class="shadow selfie-zone py-5" id="webCameraBtn3" onClick="takePhoto('step3')">
+													<img class="img-fluid" src="img/icon-selfie.png">
+													<p class="pt-3 mb-0">Tap to capture</p>
+												</span>
+												<div class="strip-step3"></div>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+
+							<div class="pc-camera mt-4">
+								<video style="width: 100%;" id="webCamera" autoplay playsinline class="handsome"></video>
+								<canvas style="display: none;" class="paint"></canvas>
+							</div>
+
+							<div class="my-5 continue-btn-wrapper">
+								<a id="continueLink" class="continue-link" href="#">Next</a>
+								<div id="continue-loader-wrapper">
+									<span id="continue-loader-message" class="red-color"></span>
+								</div>
+							</div>
+							<div class="my-5 submit-btn-wrapper">
+								<button type="submit" id="submitBtn" class="continue-link">Submit</button>
+								<div id="loader-wrapper">
+									<span id="loader-message" class="red-color"></span>
+								</div>
+							</div>
+							<div class="powered-by"><span>Powered by</span> <img src="img/rightpatient-logo.png" width="100" class="img-fluid" alt="RightPatient&reg;"></div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/bootstrap-select.min.js"></script>
+	<script src="js/jquery.facedetection.js"></script>
+	<script>
+		$(document).ready(function() {
+			//Init view
+			$('#step3-wrapper').hide();
+			$('#mySelect').selectpicker();
+			$("button#cancelBtnId, button#cancelBtnIdBack, button#cancelBtnId3, a#cancelBtnId3-mobile, #cBtnId, #cbBtnId").hide();
+			$(".submit-btn-wrapper").hide();
+			//Init view
+
+			$("button#cancelBtnId").click(function () {
+				$(".strip a").remove();
+				$(this).hide();
+				$("#webCamera").show();
+			});
+
+			$("button#cBtnId").click(function () {
+				$("#tf").remove();
+				$(this).hide();
+			});
+			
+			$("button#cancelBtnIdBack").click(function () {
+				$(".stripBack a").remove();
+				$(this).hide();
+				$("#webCamera").show();
+			});
+
+			$("button#cbBtnId").click(function () {
+				$("#tb").remove();
+				$(this).hide();
+			});
+
+			$("button#cancelBtnId3").click(function () {
+				$(".strip-step3 a").remove();
+				$(this).hide();
+				$("#webCamera").show();
+			});
+
+			$("a#cancelBtnId3-mobile").click(function () {
+				$("#ts").remove();
+				$(this).hide();
+			});
+
+
+			$('#continueLink').click(function(e) {
+				e.preventDefault();
+				console.log($("#tf").attr('src'));
+				if ( $('.strip').html() == "" && $("#mobileCamera").css("display") == "none" ) {
+					$('#continue-loader-wrapper').show();
+					$('#continue-loader-message').text("Front file is empty!");
+				} 
+				else if ( $('.stripBack').html() == "" && $("#mobileCamera").css("display") == "none" ) {
+					$('#continue-loader-wrapper').show();
+					$('#continue-loader-message').text("Back file is empty!");
+				}
+				else if ( typeof $("#tf").attr('src') === "undefined" && $("#mobileCamera").css("display") == "block" ) {
+					$('#continue-loader-wrapper').show();
+					$('#continue-loader-message').text("Front file is empty!");
+				} 
+				else if ( typeof $("#tb").attr('src') === "undefined" && $("#mobileCamera").css("display") == "block" ) {
+					$('#continue-loader-wrapper').show();
+					$('#continue-loader-message').text("Back file is empty!");
+				}
+				else {
+					$('#step2-wrapper').hide()
+					$('#step3-wrapper').show();
+					$(".submit-btn-wrapper").show();
+					$(".continue-btn-wrapper").hide();
+				}
+			});
+
+			$('#submitBtn').click(function(e){
+				e.preventDefault();
+				// Check environment is mobile or desktop and store this value to sessionStorage
+				if ( $("#mobileCamera-step3").css("display") == "none" ) { // mobile
+					sessionStorage.setItem("pageEnvironment", "desktop");
+				}
+				if ( $("#mobileCamera-step3").css("display") == "block" ) { // dekstop
+					sessionStorage.setItem("pageEnvironment", "mobile");
+				}
+				if ( $('.strip-step3').html() == "" && $("#mobileCamera-step3").css("display") == "none" ) {
+					$('#loader-wrapper').show();
+					$('#loader-message').text("Selfie file is empty!");
+				} 
+				else if ( typeof $("#ts").attr('src') === "undefined" && $("#mobileCamera-step3").css("display") == "block" ) {
+					$('#loader-message').show();
+					$('#loader-message').text("Selfie file is empty!");
+				}
+				else {
+					$('#fileForm').trigger('submit');
+				}
+			});
+		});	
+
+		// Call api
+		$('#fileForm').on('submit', function(e){
+			e.preventDefault();
+			$('#loader-message').text('Please wait...');
+			var d = new Date();
+
+			var pageEnvironment = sessionStorage.getItem("pageEnvironment");
+			if ( pageEnvironment == "mobile" ) {
+				var license = $('#mySelect').val();
+				// var fFile = document.getElementById("frontFile").files[0];
+				var ffileSrc = $("#tf").attr('src');
+				if ( ffileSrc != '' ) {
+					// Front file process
+					ImageURL = ffileSrc;
+					ext = getFileExtension(ImageURL);
+					fFile = dataURLtoFile(ffileSrc, 'rp-front-'+d.getTime()+'.'+ext);				
+				} 
+
+				// var bFile = document.getElementById("backFile").files[0];
+				var bFileSrc = $("#tb").attr('src');
+				if ( bFileSrc != '' ) {
+					// Back file process
+					ImageURL = bFileSrc;
+					ext = getFileExtension(ImageURL);
+					bFile = dataURLtoFile(bFileSrc, 'rp-back-'+d.getTime()+'.'+ext);
+				}
+
+				// var sFile = document.getElementById("selfiImg").files[0];
+				var sFileSrc = $("#ts").attr('src');
+				if ( sFileSrc != '' ) {
+					// Selfie file process
+					ImageURL = sFileSrc;
+					ext = getFileExtension(ImageURL);
+					sFile = dataURLtoFile(sFileSrc, 'rp-selfie-'+d.getTime()+'.'+ext);
+				}
+
+				var form = new FormData();
+				form.append("Attachments", '[{"AttachmentType":"'+license+'", "AttachmentID":"'+fFile.name+'","AttachmentSourceType":"Front","HasBarCode":false},{"AttachmentType":"'+license+'", "AttachmentID":"'+bFile.name+'","AttachmentSourceType":"Back","HasBarCode":true},{"AttachmentType":"Selfie", "AttachmentID":"'+sFile.name+'","AttachmentSourceType":"Front","HasBarCode":false}]');
+				form.append("frontFile", fFile);
+				form.append("backFile", bFile);
+				form.append("selfieFile", sFile);
+			}
+			else {
+				var license = $('#mySelect').val();
+
+				// Front file process
+				var frontFile = sessionStorage.getItem("frontFileb64");
+				ImageURL = frontFile;
+				var ffile = dataURLtoFile(ImageURL, 'rp-front-'+d.getTime()+'.png');
+
+				// Back file process
+				var backFile = sessionStorage.getItem("backFileb64");
+				ImageURL = backFile;
+				var bfile = dataURLtoFile(ImageURL, 'rp-back-'+d.getTime()+'.png');
+
+				// Selfie file process
+				var selfieFile = sessionStorage.getItem("selfieFileb64");
+				ImageURL = selfieFile;
+				var sfile = dataURLtoFile(ImageURL, 'rp-selfie-'+d.getTime()+'.png');
+
+				$('input[name="image"]').remove();
+
+				var formReference = document.getElementById("fileForm");
+				var form = new FormData(formReference);
+                form.append("Attachments", '[{"AttachmentType":"'+license+'", "AttachmentID":"'+'rp-front-'+d.getTime()+'.png'+'","AttachmentSourceType":"Front","HasBarCode":false},{"AttachmentType":"'+license+'", "AttachmentID":"'+'rp-back-'+d.getTime()+'.png'+'","AttachmentSourceType":"Back","HasBarCode":true},{"AttachmentType":"Selfie", "AttachmentID":"'+'rp-selfie-'+d.getTime()+'.png'+'","AttachmentSourceType":"Front","HasBarCode":false}]');
+				form.append("frontFile", ffile);
+				form.append("backFile", bfile);
+				form.append("selfieFile", sfile);
+			}
+
+			var settings = {
+				async : true,
+				"crossDomain": true,
+				"url": "https://shakib.cloudapper.com/rpocrapi/api/Appointment",
+				"method": "POST",
+				type: "POST",
+				"headers": {
+					"cache-control": "no-cache",
+					"postman-token": "ba0f531c-7335-2d4b-a7f6-84c282e9287f"
+				},
+				"processData": false,
+				"contentType": false,
+				cache: false,
+				beforeSend: function(){
+					$('#loader-wrapper').css({'visibility': 'visible'});
+					$('#loader-message').text('Please wait...');
+					$('#submitBtn').prop('disabled', true);	
+				},
+				complete: function(){
+					$('#loader-wrapper').css({'visibility': 'hidden'});
+					$('#submitBtn').prop('disabled', false);
+				},
+				success: function(){
+					$('#loader-wrapper').css({'visibility': 'hidden'});
+					$('#submitBtn').prop('disabled', false);
+					window.location.replace("success.html");
+				},
+				error: function(err){
+					console.log(err);
+					$('#loader-message').text('Something went wrong!' + err);
+					//window.location.replace("error.html");
+				},
+				"data": form
+			}
+
+			delete settings.headers['Content-Type'];
+
+			$.ajax(settings).done(function(response) {
+				//console.log(response);
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		if (navigator.userAgent.match(/Android/i)
+			|| navigator.userAgent.match(/webOS/i)
+			|| navigator.userAgent.match(/iPhone/i)
+			|| navigator.userAgent.match(/iPad/i)
+			|| navigator.userAgent.match(/iPod/i)
+			|| navigator.userAgent.match(/BlackBerry/i)
+			|| navigator.userAgent.match(/Windows Phone/i)
+		) { // MOBILE 
+			// return true;
+			document.getElementById('webCamera').style = 'display:none';
+			document.getElementById('webCameraBtn').style = 'display:none';
+			document.getElementById('webCameraBtnBack').style = 'display:none';
+			document.getElementById('camBtnImgWrap-step3').style = 'display:none';
+
+			function showMyImage(fileInput, lens) {
+				var files = fileInput.files;
+				for (var i = 0; i < files.length; i++) {
+					var file = files[i];
+					var imageType = /image.*/;
+					if (!file.type.match(imageType)) {
+						continue;
+					}
+					if ( lens == 'front' ) {
+						var img = document.getElementById("thumbnil");
+					}
+					else if ( lens == 'front-step3' ) {
+						var img = document.getElementById("thumbnil-step3");
+					}
+					else {
+						var img = document.getElementById("thumbnilBack");
+					}
+					img.file = file;
+					var reader = new FileReader();
+					reader.onload = (function (aImg) {
+						return function (e) {
+							//aImg.src = e.target.result;
+							if ( lens == 'front' ) {
+								resizeBase64Img(e.target.result, 500, 300, 'tf').then(function(newImg){
+									$("#mobileThumb").append(newImg);
+									$("#cBtnId").show();
+								});
+							}
+							else if ( lens == 'front-step3' ) {
+								resizeBase64Img(e.target.result, 500, 300, 'ts').then(function(newImg){
+									$("#mobileThumb-step3").append(newImg);
+									$("a#cancelBtnId3-mobile").show();
+								});
+							}
+							else {
+								resizeBase64Img(e.target.result, 500, 300, 'tb').then(function(newImg){
+									$("#mobileThumbBack").append(newImg);
+									$("#cbBtnId").show();
+								});
+							}							
+						};
+					})(img);
+					reader.readAsDataURL(file);
+				}
+			}
+		}
+		else { // DESKTOP
+			document.getElementById('mobileCamera').style = 'display:none';
+			document.getElementById('mobileThumb').style = 'display:none';
+			document.getElementById('mobileCameraBack').style = 'display:none';
+			document.getElementById('mobileThumbBack').style = 'display:none';
+			document.getElementById('mobileCamera-step3').style = 'display:none';
+
+			const video = document.querySelector('.handsome');
+			const canvas = document.querySelector('.paint');
+			const ctx = canvas.getContext('2d');
+			strip = document.querySelector('.strip');
+			stripstep3 = document.querySelector('.strip-step3');
+
+			async function go() {
+				// first ask for get user media
+				const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+				video.srcObject = stream;
+			}
+
+			function takePhoto(lens) {
+				console.log('takephoto');
+				if (  lens == 'front' ) {
+					strip = document.querySelector('.strip');
+					document.getElementById('cancelBtnId').style.display = 'block';
+				}
+				else if ( lens == 'back' ) {
+					strip = document.querySelector('.stripBack');
+					document.getElementById('cancelBtnIdBack').style.display = 'block'; 
+				}
+				else {
+					strip = document.querySelector('.strip-step3');
+					document.getElementById('cancelBtnId3').style.display = 'block'; 
+					document.getElementById('webCamera').style.display = 'none';
+				}
+
+				canvas.width = video.videoWidth;
+				canvas.height = video.videoHeight;
+
+				ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+				const data = canvas.toDataURL('image/png');
+				const dataURI = canvas.toDataURL('image/png');
+				const link = document.createElement('a');
+				
+				var ImageURL = '';
+				if ( lens == 'front' ) {
+					link.setAttribute('href', data);
+					link.setAttribute('download', 'frontID');					
+					link.setAttribute('id', 'frontID');	
+					link.innerHTML = `<img src="${data}" alt="Picture Taken" width="100%" id="img1" />`;
+
+					sessionStorage.setItem("frontFileb64", data);
+				}
+				else if ( lens == 'back' ) {
+					link.setAttribute('href', data);
+					link.setAttribute('download', 'backID');
+					link.setAttribute('id', 'backID');
+					link.innerHTML = `<img src="${data}" alt="Picture Taken" width="100%" id="img2" />`;
+					
+					sessionStorage.setItem("backFileb64", data);
+				}
+				else {
+					link.setAttribute('href', data);
+					link.setAttribute('download', 'step3');
+					link.setAttribute('id', 'step3ID');
+					link.innerHTML = `<img src="${data}" alt="Picture Taken" width="100%" id="img3" />`;
+					
+					sessionStorage.setItem("selfieFileb64", data);
+				}
+				
+				strip.insertBefore(link, strip.firsChild);
+				// START FACE DETECTING...
+				if ( lens == 'front' ) 
+					startFaceDetecting('img1');
+				else 
+					startFaceDetecting('img3');
+			}
+
+			function startFaceDetecting(imageID) {
+				//$('#try-it').click(function (e) { // FACE DETECTION START
+					//e.preventDefault();
+					var base64Data = $("#"+imageID).attr("src");
+					base64Parts = base64Data.split(",");
+					console.log(base64Parts[0]);
+					console.log(base64Parts[1]);
+
+					$('#'+imageID).faceDetection({
+						complete: function(faces) { 
+							console.log(faces.length);
+						},
+						error: function(code, message) {
+							alert('Error: ' + message);
+						}
+					});
+				//});
+			}
+
+			function b64toBlob(b64Data, contentType, sliceSize) {
+				contentType = contentType || '';
+				sliceSize = sliceSize || 512;
+				var byteCharacters = atob(b64Data);
+				var byteArrays = [];
+				for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+					var slice = byteCharacters.slice(offset, offset + sliceSize);
+					var byteNumbers = new Array(slice.length);
+					for (var i = 0; i < slice.length; i++) {
+						byteNumbers[i] = slice.charCodeAt(i);
+					}
+					var byteArray = new Uint8Array(byteNumbers);
+					byteArrays.push(byteArray);
+				}
+				var blob = new Blob(byteArrays, {type: contentType});
+				return blob;
+			}
+
+			go().catch(err => {
+				alert(err.message);
+			});
+		}
+
+		function dataURLtoFile(dataurl, filename) { 
+			var arr = dataurl.split(','),
+				mime = arr[0].match(/:(.*?);/)[1],
+				bstr = atob(arr[1]), 
+				n = bstr.length, 
+				u8arr = new Uint8Array(n);
+				
+			while(n--){
+				u8arr[n] = bstr.charCodeAt(n);
+			}				
+			return new File([u8arr], filename, {type:mime});
+		}
+
+		function getFileExtension(ImageURL){
+			var block = ImageURL.split(";");
+			var contentType = block[0].split(":")[1];
+			var cBlock = contentType.split("/");
+			return cBlock[1];
+		}
+
+		function resizeBase64Img(base64, width, height, id) {
+			var canvas = document.createElement("canvas");
+			canvas.width = width;
+			canvas.height = height;
+			var context = canvas.getContext("2d");
+			var deferred = $.Deferred();
+			$("<img/>").attr("src", base64).load(function() {
+				context.scale(width/this.width, height/this.height);
+				context.drawImage(this, 0, 0); 
+				deferred.resolve($("<img/>").attr('id', id).attr("src", canvas.toDataURL()));               
+			});
+			return deferred.promise();    
+		}
+	</script>
+</body>
+
+</html>

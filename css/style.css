@@ -1,0 +1,57 @@
+/* CSS Document */
+body { background: #eaeaee; }
+.wrapper { font-family: 'Roboto', sans-serif; background: #eaeaee; }
+.inner-wrap { display: table; margin: 0 auto; max-width: 370px; border: 1px solid #ddd; border-radius: 12px; background:  #f9f9fc; }
+.company-logo { max-width: 220px; }
+.hello { color: #828282; font-family: 'Roboto', sans-serif; font-size: 28px; line-height: 33px; text-align: center; font-weight: 300; letter-spacing: 1.25px; }
+.sorry { color: #FF5F58; font-weight: 500; }
+.person-name { color: #249FE6; font-family: 'Roboto', sans-serif; font-size: 28px; line-height: 32px; text-align: center; font-weight: 500; }
+.person-phone {  }
+.time-msg { color: #4F4F4F; font-size: 16px; letter-spacing: 1px; line-height: 20px; }
+h3.step-msg { color: #F36; font-size: 16px; font-weight: 500; line-height: 19px; text-align: center; }
+.caution-msg { color: #828282; font-size: 14px; line-height: 16px; margin: 0; }
+.continue-link { height: 42px; width: 204px; border-radius: 22px; background-color: #489DF2; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.31); display: inline-block; color: #fff; text-transform: uppercase; font-size: 17px; font-weight: 500; line-height: 2.5em; letter-spacing: 1px; text-decoration: none; }
+a.retry-link { background: #fff; color: #489DF2; }
+.time-wrap { border: 1px solid #F36; background: #fff; padding: 8px 0; border-radius: 12px; max-width: 260px; margin: 0 auto; }
+.appointment-date { color: #4F4F4F; font-size: 18px; font-weight: 500; }
+.time-wrap .appointment-time { color: #249FE6; font-size: 16px; font-weight: 500; margin-bottom: 5px; }
+.appointment-status { color: #F36; }
+.appointment-status span { border: 1px solid #F36; font-size: 12px; padding: 3px 10px; border-radius: 12px; display: table; margin: 0 auto -15px; background: #fff; }
+.time-wrap-success, .time-wrap-success .appointment-status span { border: 1px solid #2AC940; }
+.time-wrap-success .appointment-status { color: #2AC940; }
+.powered-by { color: #828282; font-size: 12px; font-weight: 500; letter-spacing: 0.77px; line-height: 14px; }
+
+.selfie-zone { background: #fff; border-radius: 12px; display: block; width: 90%; margin: 10px auto 30px; border: none; cursor: pointer; }
+.selfie-zone:focus { outline: 0; }
+.id-capture { background: #fff; border-radius: 12px; display: block; width: 90%; margin: 10px auto; }
+.overflow-hidden { overflow: hidden; }
+.filter-option-inner, .identity-dropdown ul.dropdown-menu li span.text { color: #489DF2; }
+.identity-dropdown ul.dropdown-menu li.active span.text { color: #FFF; }
+.filter-option-inner > i { padding-right: 10px; }
+.front-back { color: #828282; font-size: 14px; }
+
+.camBtnImgWrap, .thumb-wrapper { position: relative; }
+.btn-img-wrap { position: relative; overflow: hidden; }
+.strip, .stripBack, .strip-step3 { position: absolute; top: 0; z-index: 1; width: 92%; left: 4%; }
+.strip img, .stripBack img { border-radius: 8px; }
+.cancelBtn, .cancelBtnBack { position: absolute; z-index: 2; right: 5px; top: -10px; border-radius: 100%; width: 26px; height: 26px; border: 1px solid #ddd; background: #fff; padding: 0; cursor: pointer; }
+.mcancelBtn{ position: absolute; z-index: 2; right: 0; top: 2px; border-radius: 100%; width: 26px; height: 26px; border: 1px solid #ddd; background: #fff; padding: 0; cursor: pointer; }
+.cancelBtn:focus, .cancelBtnBack:focus { outline: 0; }
+.cancelBtn-mobile { position: absolute; z-index: 2; right: 0px; top: 0px; border-radius: 100%; width: 26px; height: 26px; border: 1px solid #ddd; background: #fff; padding: 0; cursor: pointer; }
+
+.mobileImg { display: block; position: relative; width: 300px; margin: auto; cursor: pointer; border: 0; height: 60px; border-radius: 5px; outline: 0; }
+.mobileImg:hover:after { background: #5978f8; }
+.mobileImg:after { transition: 200ms all ease; border-bottom: 3px solid rgba(0,0,0,.2); background: #3c5ff4; text-shadow: 0 2px 0 rgba(0,0,0,.2); color: #fff; font-size: 20px; text-align: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; content: 'Take Photo'; line-height: 60px; border-radius: 5px; }
+.mobileImgId { width: 95%; }
+.mobileImgId:after { content: 'Tap to capture'; font-size: 16px; }
+#thumbnil, #thumbnilBack, #thumbnil-step3, .thumb-wrapper img { object-fit: contain; max-width:100%; margin-top:10px; }
+.red-color{color: red}
+#submitBtn{border: none;}
+.mb-15{margin-bottom: 15px;}
+.mt-10{margin-top: 10px;}
+.width-49{width: 49%;}
+#mobileThumb-step3{margin: 0 auto; width: 90%;}
+
+@media only screen and (min-width: 600px) {
+  .inner-wrap { min-width: 370px; }
+}
