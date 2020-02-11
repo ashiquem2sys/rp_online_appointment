@@ -117,12 +117,14 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://jaysalvat.github.io/jquery.facedetection/releases/latest/jquery.facedetection.min.js"></script>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/bootstrap-select.min.js"></script>
-	<script src="js/jquery.facedetection.js"></script>
 	<script>
 		$(document).ready(function() {
+			// imageFlag initial
+			imageFlag = true;
 			//Init view
 			$('#step3-wrapper').hide();
 			$('#mySelect').selectpicker();
@@ -130,39 +132,40 @@
 			$(".submit-btn-wrapper").hide();
 			//Init view
 
-			$("button#cancelBtnId").click(function () {
+			$("button#cancelBtnId").click(function(e) {
+				e.preventDefault();
 				$(".strip a").remove();
 				$(this).hide();
 				$("#webCamera").show();
 			});
 
-			$("button#cBtnId").click(function () {
+			$("button#cBtnId").click(function() {
 				$("#tf").remove();
 				$(this).hide();
 			});
 			
-			$("button#cancelBtnIdBack").click(function () {
+			$("button#cancelBtnIdBack").click(function(e) {
+				e.preventDefault();
 				$(".stripBack a").remove();
 				$(this).hide();
 				$("#webCamera").show();
 			});
 
-			$("button#cbBtnId").click(function () {
+			$("button#cbBtnId").click(function() {
 				$("#tb").remove();
 				$(this).hide();
 			});
 
-			$("button#cancelBtnId3").click(function () {
+			$("button#cancelBtnId3").click(function() {
 				$(".strip-step3 a").remove();
 				$(this).hide();
 				$("#webCamera").show();
 			});
 
-			$("a#cancelBtnId3-mobile").click(function () {
+			$("a#cancelBtnId3-mobile").click(function() {
 				$("#ts").remove();
 				$(this).hide();
 			});
-
 
 			$('#continueLink').click(function(e) {
 				e.preventDefault();
@@ -170,6 +173,10 @@
 				if ( $('.strip').html() == "" && $("#mobileCamera").css("display") == "none" ) {
 					$('#continue-loader-wrapper').show();
 					$('#continue-loader-message').text("Front file is empty!");
+				} 
+				else if ( imageFlag == false ) {
+					$('#continue-loader-wrapper').show();
+					$('#continue-loader-message').text("Face not found in front file!");
 				} 
 				else if ( $('.stripBack').html() == "" && $("#mobileCamera").css("display") == "none" ) {
 					$('#continue-loader-wrapper').show();
@@ -204,6 +211,10 @@
 					$('#loader-wrapper').show();
 					$('#loader-message').text("Selfie file is empty!");
 				} 
+				else if ( imageFlag == false ) {
+					$('#loader-wrapper').show();
+					$('#loader-message').text("Face not found in selfie!");
+				}
 				else if ( typeof $("#ts").attr('src') === "undefined" && $("#mobileCamera-step3").css("display") == "block" ) {
 					$('#loader-message').show();
 					$('#loader-message').text("Selfie file is empty!");
@@ -325,9 +336,7 @@
 				//console.log(response);
 			});
 		});
-	</script>
 
-	<script type="text/javascript">
 		if (navigator.userAgent.match(/Android/i)
 			|| navigator.userAgent.match(/webOS/i)
 			|| navigator.userAgent.match(/iPhone/i)
@@ -436,7 +445,7 @@
 					link.setAttribute('href', data);
 					link.setAttribute('download', 'frontID');					
 					link.setAttribute('id', 'frontID');	
-					link.innerHTML = `<img src="${data}" alt="Picture Taken" width="100%" id="img1" />`;
+					link.innerHTML = `<img src="${data}" alt="Picture Taken" width="100%" height="100%" id="img1" />`;
 
 					sessionStorage.setItem("frontFileb64", data);
 				}
@@ -444,7 +453,7 @@
 					link.setAttribute('href', data);
 					link.setAttribute('download', 'backID');
 					link.setAttribute('id', 'backID');
-					link.innerHTML = `<img src="${data}" alt="Picture Taken" width="100%" id="img2" />`;
+					link.innerHTML = `<img src="${data}" alt="Picture Taken" width="100%" height="100%" id="img2" />`;
 					
 					sessionStorage.setItem("backFileb64", data);
 				}
@@ -452,36 +461,43 @@
 					link.setAttribute('href', data);
 					link.setAttribute('download', 'step3');
 					link.setAttribute('id', 'step3ID');
-					link.innerHTML = `<img src="${data}" alt="Picture Taken" width="100%" id="img3" />`;
+					link.innerHTML = `<img src="${data}" alt="Picture Taken" width="100%" height="100%" id="img3" />`;
 					
 					sessionStorage.setItem("selfieFileb64", data);
 				}
-				
 				strip.insertBefore(link, strip.firsChild);
+
 				// START FACE DETECTING...
-				if ( lens == 'front' ) 
-					startFaceDetecting('img1');
-				else 
-					startFaceDetecting('img3');
-			}
-
-			function startFaceDetecting(imageID) {
-				//$('#try-it').click(function (e) { // FACE DETECTION START
-					//e.preventDefault();
-					var base64Data = $("#"+imageID).attr("src");
-					base64Parts = base64Data.split(",");
-					console.log(base64Parts[0]);
-					console.log(base64Parts[1]);
-
-					$('#'+imageID).faceDetection({
-						complete: function(faces) { 
-							console.log(faces.length);
-						},
-						error: function(code, message) {
-							alert('Error: ' + message);
-						}
-					});
-				//});
+				setTimeout(function(){ 
+					if ( lens == 'front' ) {
+						$('#img1').faceDetection({
+							complete: function(faces) { 
+								console.log(faces.length);
+								if ( faces.length > 0 ) 
+									imageFlag = true;
+								else 
+									imageFlag = false;
+							},
+							error: function(code, message) {
+								alert('Error: ' + message);
+							}
+						});
+					}					
+					else {
+						$('#img3').faceDetection({
+							complete: function(faces) { 
+								console.log(faces.length);
+								if ( faces.length > 0 ) 
+									imageFlag = true;
+								else 
+									imageFlag = false;
+							},
+							error: function(code, message) {
+								alert('Error: ' + message);
+							}
+						});
+					}
+				}, 2500);
 			}
 
 			function b64toBlob(b64Data, contentType, sliceSize) {
@@ -540,7 +556,8 @@
 			});
 			return deferred.promise();    
 		}
-	</script>
+	</script>	
+
 </body>
 
 </html>
