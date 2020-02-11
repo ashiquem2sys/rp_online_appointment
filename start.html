@@ -139,7 +139,8 @@
 				$("#webCamera").show();
 			});
 
-			$("button#cBtnId").click(function() {
+			$("button#cBtnId").click(function(e) {
+				e.preventDefault();
 				$("#tf").remove();
 				$(this).hide();
 			});
@@ -151,7 +152,8 @@
 				$("#webCamera").show();
 			});
 
-			$("button#cbBtnId").click(function() {
+			$("button#cbBtnId").click(function(e) {
+				e.preventDefault();
 				$("#tb").remove();
 				$(this).hide();
 			});
@@ -169,7 +171,6 @@
 
 			$('#continueLink').click(function(e) {
 				e.preventDefault();
-				console.log($("#tf").attr('src'));
 				if ( $('.strip').html() == "" && $("#mobileCamera").css("display") == "none" ) {
 					$('#continue-loader-wrapper').show();
 					$('#continue-loader-message').text("Front file is empty!");
@@ -198,7 +199,7 @@
 				}
 			});
 
-			$('#submitBtn').click(function(e){
+			$('#submitBtn').click(function(e) {
 				e.preventDefault();
 				// Check environment is mobile or desktop and store this value to sessionStorage
 				if ( $("#mobileCamera-step3").css("display") == "none" ) { // mobile
@@ -377,12 +378,42 @@
 								resizeBase64Img(e.target.result, 500, 300, 'tf').then(function(newImg){
 									$("#mobileThumb").append(newImg);
 									$("#cBtnId").show();
+									// START FACE DETECTING...
+									setTimeout(function(){ 
+										$('#tf').faceDetection({
+											complete: function(faces) { 
+												console.log(faces.length);
+												if ( faces.length > 0 ) 
+													imageFlag = true;
+												else 
+													imageFlag = false;
+											},
+											error: function(code, message) {
+												alert('Error: ' + message);
+											}
+										});
+									}, 2500);
 								});
 							}
 							else if ( lens == 'front-step3' ) {
 								resizeBase64Img(e.target.result, 500, 300, 'ts').then(function(newImg){
 									$("#mobileThumb-step3").append(newImg);
 									$("a#cancelBtnId3-mobile").show();
+									// START FACE DETECTING...
+									setTimeout(function(){ 
+										$('#ts').faceDetection({
+											complete: function(faces) { 
+												console.log(faces.length);
+												if ( faces.length > 0 ) 
+													imageFlag = true;
+												else 
+													imageFlag = false;
+											},
+											error: function(code, message) {
+												alert('Error: ' + message);
+											}
+										});
+									}, 2500);
 								});
 							}
 							else {
