@@ -32,8 +32,9 @@
 							</div>
 							<h3 class="step-msg mt-3">To confirm your appointment, please complete the next steps.</h3>
 							<div class="caution-msg">This is required to prevent your medical identity theft.</div>
-							<div class="mt-5"><a class="continue-link" href="start.html">Continue</a></div>
-							<div class="my-3 toc"><input type="checkbox" name="toc" value="1" checked /> By clicking continue, you agree to the <a href="#">terms and conditions</a>.</div>
+							<div class="mt-5"><a id="continue-link" class="continue-link" href="start.html">Continue</a></div>
+							<div class="err_message">Please accept terms and conditions</div>
+							<div class="my-3 toc"><input id="termocondition" type="checkbox" name="toc" value="1" checked /> <label for="termocondition">By clicking continue, you agree to the</label> <a href="#">terms and conditions</a>.</div>
 							<div class="powered-by"><span>Powered by</span> <img src="img/rightpatient-logo.png" width="100" class="img-fluid" alt="RightPatient&reg;"></div>
 						</div>
 					</div>
@@ -42,5 +43,19 @@
 		</div>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+		<script>
+			$(document).ready(function(){termocondition
+				$('.err_message').hide();
+				$('#continue-link').click(function(e){
+					e.preventDefault();
+					if ( ! $('#termocondition').is(':checked') ) 
+						$('.err_message').show();
+					if ( $('#termocondition').is(':checked') ) {
+						$('.err_message').hide();
+						window.location.href = "start.html";
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

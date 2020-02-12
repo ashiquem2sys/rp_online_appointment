@@ -52,6 +52,7 @@ a.retry-link { background: #fff; color: #489DF2; }
 .width-49{width: 49%;}
 #mobileThumb-step3{margin: 0 auto; width: 90%;}
 .toc{font-size: 12px;}
+.err_message{color: red; font-size: 12px; text-align: center; margin-top: 8px;}
 
 @media only screen and (min-width: 600px) {
   .inner-wrap { min-width: 370px; }
