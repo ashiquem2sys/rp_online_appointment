@@ -51,6 +51,7 @@ a.retry-link { background: #fff; color: #489DF2; }
 .mt-10{margin-top: 10px;}
 .width-49{width: 49%;}
 #mobileThumb-step3{margin: 0 auto; width: 90%;}
+.toc{font-size: 12px;}
 
 @media only screen and (min-width: 600px) {
   .inner-wrap { min-width: 370px; }
