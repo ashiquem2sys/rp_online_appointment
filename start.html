@@ -158,7 +158,8 @@
 				$(this).hide();
 			});
 
-			$("button#cancelBtnId3").click(function() {
+			$("button#cancelBtnId3").click(function(e) {
+				e.preventDefault();
 				$(".strip-step3 a").remove();
 				$(this).hide();
 				$("#webCamera").show();
