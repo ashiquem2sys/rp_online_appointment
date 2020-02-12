@@ -124,7 +124,7 @@
 	<script>
 		$(document).ready(function() {
 			// imageFlag initial
-			imageFlag = true;
+			// imageFlag = true;
 			//Init view
 			$('#step3-wrapper').hide();
 			$('#mySelect').selectpicker();
@@ -175,10 +175,10 @@
 					$('#continue-loader-wrapper').show();
 					$('#continue-loader-message').text("Front file is empty!");
 				} 
-				else if ( imageFlag == false ) {
-					$('#continue-loader-wrapper').show();
-					$('#continue-loader-message').text("Face not found in front file!");
-				} 
+				// else if ( imageFlag == false ) {
+				// 	$('#continue-loader-wrapper').show();
+				// 	$('#continue-loader-message').text("Face not found in front file!");
+				// } 
 				else if ( $('.stripBack').html() == "" && $("#mobileCamera").css("display") == "none" ) {
 					$('#continue-loader-wrapper').show();
 					$('#continue-loader-message').text("Back file is empty!");
@@ -212,10 +212,10 @@
 					$('#loader-wrapper').show();
 					$('#loader-message').text("Selfie file is empty!");
 				} 
-				else if ( imageFlag == false ) {
-					$('#loader-wrapper').show();
-					$('#loader-message').text("Face not found in selfie!");
-				}
+				// else if ( imageFlag == false ) {
+				// 	$('#loader-wrapper').show();
+				// 	$('#loader-message').text("Face not found in selfie!");
+				// }
 				else if ( typeof $("#ts").attr('src') === "undefined" && $("#mobileCamera-step3").css("display") == "block" ) {
 					$('#loader-message').show();
 					$('#loader-message').text("Selfie file is empty!");
@@ -379,20 +379,20 @@
 									$("#mobileThumb").append(newImg);
 									$("#cBtnId").show();
 									// START FACE DETECTING...
-									setTimeout(function(){ 
-										$('#tf').faceDetection({
-											complete: function(faces) { 
-												console.log(faces.length);
-												if ( faces.length > 0 ) 
-													imageFlag = true;
-												else 
-													imageFlag = false;
-											},
-											error: function(code, message) {
-												alert('Error: ' + message);
-											}
-										});
-									}, 2500);
+									// setTimeout(function(){ 
+									// 	$('#tf').faceDetection({
+									// 		complete: function(faces) { 
+									// 			console.log(faces.length);
+									// 			if ( faces.length > 0 ) 
+									// 				imageFlag = true;
+									// 			else 
+									// 				imageFlag = false;
+									// 		},
+									// 		error: function(code, message) {
+									// 			alert('Error: ' + message);
+									// 		}
+									// 	});
+									// }, 2500);
 								});
 							}
 							else if ( lens == 'front-step3' ) {
@@ -400,20 +400,20 @@
 									$("#mobileThumb-step3").append(newImg);
 									$("a#cancelBtnId3-mobile").show();
 									// START FACE DETECTING...
-									setTimeout(function(){ 
-										$('#ts').faceDetection({
-											complete: function(faces) { 
-												console.log(faces.length);
-												if ( faces.length > 0 ) 
-													imageFlag = true;
-												else 
-													imageFlag = false;
-											},
-											error: function(code, message) {
-												alert('Error: ' + message);
-											}
-										});
-									}, 2500);
+									// setTimeout(function(){ 
+									// 	$('#ts').faceDetection({
+									// 		complete: function(faces) { 
+									// 			console.log(faces.length);
+									// 			if ( faces.length > 0 ) 
+									// 				imageFlag = true;
+									// 			else 
+									// 				imageFlag = false;
+									// 		},
+									// 		error: function(code, message) {
+									// 			alert('Error: ' + message);
+									// 		}
+									// 	});
+									// }, 2500);
 								});
 							}
 							else {
@@ -499,36 +499,36 @@
 				strip.insertBefore(link, strip.firsChild);
 
 				// START FACE DETECTING...
-				setTimeout(function(){ 
-					if ( lens == 'front' ) {
-						$('#img1').faceDetection({
-							complete: function(faces) { 
-								console.log(faces.length);
-								if ( faces.length > 0 ) 
-									imageFlag = true;
-								else 
-									imageFlag = false;
-							},
-							error: function(code, message) {
-								alert('Error: ' + message);
-							}
-						});
-					}					
-					else {
-						$('#img3').faceDetection({
-							complete: function(faces) { 
-								console.log(faces.length);
-								if ( faces.length > 0 ) 
-									imageFlag = true;
-								else 
-									imageFlag = false;
-							},
-							error: function(code, message) {
-								alert('Error: ' + message);
-							}
-						});
-					}
-				}, 2500);
+				// setTimeout(function(){ 
+				// 	if ( lens == 'front' ) {
+				// 		$('#img1').faceDetection({
+				// 			complete: function(faces) { 
+				// 				console.log(faces.length);
+				// 				if ( faces.length > 0 ) 
+				// 					imageFlag = true;
+				// 				else 
+				// 					imageFlag = false;
+				// 			},
+				// 			error: function(code, message) {
+				// 				alert('Error: ' + message);
+				// 			}
+				// 		});
+				// 	}					
+				// 	else {
+				// 		$('#img3').faceDetection({
+				// 			complete: function(faces) { 
+				// 				console.log(faces.length);
+				// 				if ( faces.length > 0 ) 
+				// 					imageFlag = true;
+				// 				else 
+				// 					imageFlag = false;
+				// 			},
+				// 			error: function(code, message) {
+				// 				alert('Error: ' + message);
+				// 			}
+				// 		});
+				// 	}
+				// }, 2500);
 			}
 
 			function b64toBlob(b64Data, contentType, sliceSize) {
