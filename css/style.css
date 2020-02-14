@@ -53,7 +53,7 @@ a.retry-link { background: #fff; color: #489DF2; }
 #mobileThumb-step3{margin: 0 auto; width: 90%;}
 .toc{font-size: 12px;}
 .err_message{color: red; font-size: 12px; text-align: center; margin-top: 8px;}
-#continueLink:hover{text-decoration: none; color: #f1f1f1;}
+.continue-link:hover{text-decoration: none; color: #f1f1f1;}
 
 @media only screen and (min-width: 600px) {
   .inner-wrap { min-width: 370px; }
