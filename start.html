@@ -299,6 +299,9 @@
 				}
 				strip.insertBefore(link, strip.firsChild);
 			}
+			go().catch(err => {
+				alert(err.message);
+			});
 		}
 	</script>
 	<script>
@@ -748,15 +751,19 @@
 						$('#loader-wrapper').css({'visibility': 'hidden'});
 						$('#submitBtn').prop('disabled', false);
 					},
-					success: function(){
+					success: function(res){
 						$('#loader-wrapper').css({'visibility': 'hidden'});
 						$('#submitBtn').prop('disabled', false);
-						window.location.replace("success.html");
+						//console.log(res);
+						if ( res.Success == true ) 
+							window.location.replace("success.html");
+						else 
+							window.location.replace("error.html");
 					},
 					error: function(err){
-						console.log(err);
+						//console.log(err);
 						$('#loader-message').text('Something went wrong!' + err);
-						//window.location.replace("error.html");
+						window.location.replace("error.html");
 					},
 					"data": form
 				}
